@@ -3,10 +3,22 @@
 //Dependencies
 
 var http = require("http");
+var url = require("url");
 
 //server should respond to all the strings
 var server = http.createServer(function(req, res) {
-  res.end("Hello World!");
+  // Get the url and parse it
+  var parsedUrl = url.parse(req.url, true);
+
+  // Get the Path
+  var path = parsedUrl.pathname;
+  var trimmedPath = path.replace(/^\/+|\/+$/g, "");
+
+  //Send the reponse
+  res.end("Hello World\n");
+
+  //Log request path
+  console.log("Request received on path:" + trimmedPath);
 });
 
 //Start the server,It should listen on some port
